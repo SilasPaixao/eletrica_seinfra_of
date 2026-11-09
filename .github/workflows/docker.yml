@@ -29,5 +29,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/silas_paixao/eletrica-seinfra-of:myea-v1
-            ghcr.io/silas_paixao/eletrica-seinfra-of:sha-${{ github.sha }}
+            ghcr.io/silaspaixao/eletrica-seinfra-of:myea-v1
+            ghcr.io/silaspaixao/eletrica-seinfra-of:sha-${{ github.sha }}
