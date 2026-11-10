@@ -29,5 +29,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/silas-en/almoxarife-eletrica-seinfra-of:myea-v2
-            ghcr.io/silas-en/almoxarife-eletrica-seinfra-of:sha-${{ github.sha }}
+            ghcr.io/silaspaixao/eletrica-seinfra-of:myea-v2
+            ghcr.io/silaspaixao/eletrica-seinfra-of:sha-${{ github.sha }}
