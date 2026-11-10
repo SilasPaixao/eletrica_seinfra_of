@@ -964,9 +964,14 @@ export class DemandController {
           return res.status(422).json({ error: 'Materiais utilizados divergem dos planejados' });
         }
         const vehicles = String(req.body.vehicles || '').split(',').map((x: string) => x.trim()).filter(Boolean);
-        if (vehicles.length !== 1 || !(await prisma.vehicle.findFirst({ where: { name: vehicles[0] } }))) {
-          return res.status(422).json({ error: 'Veículo não cadastrado' });
-        }
+        if (vehicles.length !== 1) return res.status(422).json({ error: 'Selecione exatamente um veículo cadastrado' });
+        // Accept stable vehicle UUID from MyEA, or the legacy vehicle name from manual flows.
+        const vehicle = await prisma.vehicle.findFirst({
+          where: { OR: [{ id: vehicles[0] }, { name: vehicles[0] }] }
+        });
+        if (!vehicle) return res.status(422).json({ error: 'Veículo não cadastrado' });
+        // Persist the canonical name to preserve the existing demand.vehicles format.
+        req.body.vehicles = vehicle.name;
       }
       const urls: string[] = [];
       for (let i = 0; i < files.length; i++) {
